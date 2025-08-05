@@ -1,31 +1,42 @@
 .navbar {
-  background-color: #B26E63;
-  padding: 1rem 2rem;
+  background-color: #7D6F86;
   display: flex;
-  gap: 2rem;
   align-items: center;
+  justify-content: space-between;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 10;
+  font-size: 1.5rem;
 }
 
 .navbar a {
   color: #FDFFFC;
+  padding: 1rem;
   text-decoration: none;
-  font-size: 1.1rem;
   transition: color 0.3s ease, border-bottom 0.3s ease;
-  padding-bottom: 2px;
   border-bottom: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icons {
+  display: flex;
+}
+
+.nav-links {
+  display: flex;
+  min-width: 6rem;
 }
 
 .navbar a:hover {
-  color: #119DA4;
-  border-bottom: 2px solid #119DA4;
+  color: #EDAE49;
+  border-bottom: 2px solid #EDAE49;
 }
 
-.home-icon {
+.nav-link.active {
+  background-color: white;
+  color: #585191;
   font-weight: bold;
-  font-size: 1.2rem;
-  color: #119DA4;
 }

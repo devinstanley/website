@@ -1,5 +1,5 @@
 .web-container{
-    background-color: #654C4F;
-    min-height: 100%;
-    min-width: 100%;
+    background-image: linear-gradient(to bottom, #585191, #70A9A1);
+    min-height: 100vh;
+    min-width: 100vw;
 }
