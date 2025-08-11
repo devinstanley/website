@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { generateVine, segmentsToPath } from "../utils/VineUtils";
 
 const milestones = [
   {
@@ -58,24 +59,6 @@ const interpolateColor = (t, startHex, endHex) => {
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-const generateZigZagPath = (width, height, segments = 3) => {
-  const stepY = height / segments;
-  const amplitude = width / 2;
-
-  let path = `M ${width / 2} 0 `; // start in the middle top
-
-  for (let i = 1; i <= segments; i++) {
-    const direction = i % 2 === 0 ? 1 : -1;
-    const controlX = width / 2 + direction * amplitude;
-    const controlY = stepY * (i - 0.5);
-    const endX = width / 2;
-    const endY = stepY * i;
-    path += `Q ${controlX} ${controlY}, ${endX} ${endY} `;
-  }
-
-  return path;
-};
-
 const About = () => {
   const [scrollValue, setScrollValue] = useState(0);
   const dotX = useMotionValue(0);
@@ -96,7 +79,7 @@ const About = () => {
       const updatePath = () => {
         const w = window.innerWidth;
         const h = window.innerHeight;
-        setPathData(generateZigZagPath(w, h, 3));
+        setPathData(segmentsToPath(generateVine(w, h, 8)));
       };
 
       updatePath();
@@ -206,13 +189,13 @@ useEffect(() => {
 
             const pathPoint = pathRef.current.getPointAtLength(pathLength * positionOnPath);
             const side = pathPoint.x < window.innerWidth / 2 ? "right" : "left";
-            const offset = 150;
+            const offset = 250;
             const cardX = side === "right" ? pathPoint.x + offset : pathPoint.x - offset;
-            const cardY = pathPoint.y + 40;
+            const cardY = pathPoint.y + 15;
 
 
-            const midX = (pathPoint.x + cardX) / 2;
-            const controlY = pathPoint.y + 40; // slightly above for curve
+            const midX = (pathPoint.x + cardX) / 2.2;
+            const controlY = pathPoint.y - 100; // slightly above for curve
             const branchPath = `M ${pathPoint.x},${pathPoint.y} Q ${midX},${controlY} ${cardX},${cardY}`;
 
             const vineYRatio = pathPoint.y / window.innerHeight;
@@ -229,7 +212,7 @@ useEffect(() => {
                       d={branchPath}
                       fill="none"
                       stroke={branchColor}
-                      strokeWidth={2}
+                      strokeWidth={3}
                       strokeDasharray="6 3"
                       initial={{ pathLength: 0, opacity: 0 }}
                       animate={{ pathLength: 1, opacity: 1 }}
