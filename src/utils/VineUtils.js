@@ -83,7 +83,7 @@ export const generateVine = (width, height, segments = 6, milestones = []) => {
       const segmentHeight = totalVerticalSpace * 0.15;
       if (verticalUsed + segmentHeight > totalVerticalSpace) break;
       
-      const amplitude = width * 0.15; // Reduced from 0.2
+      const amplitude = width * Math.random(); // Reduced from 0.2
       const direction = i % 2 === 0 ? 1 : -1;
       
       segment = generateCubicSegment(
