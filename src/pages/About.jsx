@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { generateVine, segmentsToPath } from "../utils/VineUtils";
+import '../styles/About.css'
 
 const milestones = [
   {
     id: 1,
     title: "Bachelors at SDSU",
     content:
-      "I graduated with my Bachelors in Applied Mathematics with an Emphasis in Computational Science from San Diego State University. ",
+      "I graduated with a Bachelors in Applied Mathematics with an Emphasis in Computational Science from San Diego State University. ",
     positionOnPath: 0.15,
   },
   {
@@ -61,8 +62,8 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 const About = () => {
   const [scrollValue, setScrollValue] = useState(0);
-  const dotX = useMotionValue(0);
-  const dotY = useMotionValue(0);
+  const dotX = useMotionValue(window.innerWidth/2);
+  const dotY = useMotionValue(window.innerHeight);
   const containerRef = useRef(null);
   const pathRef = useRef(null);
   const [pathLength, setPathLength] = useState(0);
@@ -79,7 +80,7 @@ const About = () => {
       const updatePath = () => {
         const w = window.innerWidth;
         const h = window.innerHeight;
-        setPathData(segmentsToPath(generateVine(w, h, 8)));
+        setPathData(segmentsToPath(generateVine(w, h, 12)));
       };
 
       updatePath();
@@ -141,27 +142,11 @@ useEffect(() => {
   return (
     <>
       {/* Container fills viewport, no scroll */}
-      <div
-        ref={containerRef}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          height: "100vh",
-          width: "100vw",
-          background: "inherit", // lets your global gradient show through
-          overflow: "hidden",
-          userSelect: "none",
-          touchAction: "none",
-        }}
-      >
-        <svg
-          width="100%"
-          height="100%"
+      <div className="viewport" ref={containerRef}>
+        <svg className="svg"
           preserveAspectRatio="xMidYMid meet"
           viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}
           xmlns="http://www.w3.org/2000/svg"
-          style={{ position: "absolute", top: 0, left: 0, overflow: "visible" }}
         >
           <defs>
             <linearGradient id="vineGradient" x1="0" y1="0" x2="0" y2="1">
@@ -170,17 +155,12 @@ useEffect(() => {
             </linearGradient>
           </defs>
 
-          <motion.path
+          <motion.path 
+            className="vine-path"
             ref={pathRef}
             d={pathData}
-            fill="none"
-            stroke="url(#vineGradient)"
-            strokeWidth={5}
-            strokeLinecap="round"
-            opacity={1}
             strokeDasharray={pathLength}
             strokeDashoffset={dashOffset}
-            filter="drop-shadow(0 0 6px rgba(50,150,50,0.5))"
           />
           {milestones.map(({ positionOnPath }, idx) => {
             if (!pathRef.current || pathLength === 0) return null;
@@ -209,11 +189,9 @@ useEffect(() => {
                 <AnimatePresence key={`line-${idx}`}>
                   {visible && (
                     <motion.path
+                      className="milestone-branch-path"
                       d={branchPath}
-                      fill="none"
                       stroke={branchColor}
-                      strokeWidth={3}
-                      strokeDasharray="6 3"
                       initial={{ pathLength: 0, opacity: 0 }}
                       animate={{ pathLength: 1, opacity: 1 }}
                       exit={{ pathLength: 0, opacity: 0 }}
@@ -227,18 +205,10 @@ useEffect(() => {
 
         {/* Dot traveling the path */}
         <motion.div
+          className="traveling-dot"
           style={{
-            position: "absolute",
             top: dotY,
-            left: dotX,
-            width: 24,
-            height: 24,
-            borderRadius: "50%",
-            backgroundColor: "#EDAE49",
-            boxShadow: "0 0 10px #EDAE49",
-            transform: "translate(-50%, -50%)",
-            pointerEvents: "none",
-            zIndex: 20,
+            left: dotX
           }}
         />
 
@@ -264,30 +234,19 @@ useEffect(() => {
             <AnimatePresence key={id}>
               {visible && (
                 <motion.div
+                  className="milestone-card"
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.8, y: 20 }}
                   transition={{ duration: 0.5 }}
                   style={{
-                    position: "absolute",
                     top: cardY,
                     left: cardX,
-                    width: cardWidth,
-                    padding: "1rem 1.2rem",
-                    background: "rgba(255 255 255 / 0.95)",
-                    borderRadius: 12,
-                    boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
-                    transform: "translate(-50%, 0)",
-                    color: "#222",
-                    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-                    zIndex: 15,
-                    userSelect: "text",
+                    width: cardWidth
                   }}
                 >
-                  <h3 style={{ margin: "0 0 0.5rem" }}>{title}</h3>
-                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.4 }}>
-                    {content}
-                  </p>
+                  <h3>{title}</h3>
+                  <p>{content}</p>
                 </motion.div>
               )}
             </AnimatePresence>
