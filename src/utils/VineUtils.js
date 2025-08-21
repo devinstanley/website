@@ -18,7 +18,7 @@ export const generateVine = (width, height, segments = 8) => {
   const usableWidth = width - 2 * margin;
   const usableHeight = height * 0.85;
 
-  let currentPoint = {x: width / 2, y: height}; //Start at bottom of page
+  let currentPoint = {x: width / 2, y: height - margin * 0.8}; //Start at bottom of page
   let currentTangent = { x: 0, y: -1} // Start going straight up
   const segmentHeight = usableHeight / segments;
 
