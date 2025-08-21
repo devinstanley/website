@@ -29,10 +29,10 @@ export const generateVine = (width, height, segments = 8) => {
     const swayIntensity = Math.sin(progress * Math.PI) * 0.8;
     const baseAmplitude = usableWidth * 0.15;
     const primarySway = Math.sin(progress * Math.PI * 2.2) * swayIntensity;
-    const secondarySway = Math.sin(progress * Math.PI * 4.5) * 0.2;
+    const secondarySway = Math.sin(progress * Math.PI * 4.5) * 0.3;
     const sway = baseAmplitude * (primarySway + secondarySway);
 
-    const randomOffset = (Math.random() - 0.5) * 20;
+    const randomOffset = (Math.random() - 0.5) * 60;
 
     const nextPoint = {
       x: Math.max(margin, Math.min(width - margin, 
