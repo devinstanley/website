@@ -75,6 +75,10 @@ const About = () => {
   });
   const [pathData, setPathData] = useState("");
 
+  // Touch handling state
+  const touchStartY = useRef(0);
+  const lastTouchY = useRef(0);
+
   useEffect(() => 
     {
       const updatePath = () => {
@@ -90,19 +94,44 @@ const About = () => {
   []);
 
   // Disable native scrolling
-  useEffect(() => 
-    {
-      const handleWheel = (e) => {
-        e.preventDefault();
-        const current = rawScroll.get();
-        const next = clamp(current + -e.deltaY * 0.00005, 0, 1); // Adjust speed here
-        rawScroll.set(next);
-      };
+  // Handle both wheel (desktop) and touch (mobile) events
+  useEffect(() => {
+    const handleWheel = (e) => {
+      e.preventDefault();
+      const current = rawScroll.get();
+      const next = clamp(current + -e.deltaY * 0.00005, 0, 1);
+      rawScroll.set(next);
+    };
+    
+    const handleTouchStart = (e) => {
+      touchStartY.current = e.touches[0].clientY;
+      lastTouchY.current = e.touches[0].clientY;
+    };
+    
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      const currentY = e.touches[0].clientY;
+      const deltaY = lastTouchY.current - currentY;
+      lastTouchY.current = currentY;
       
-      window.addEventListener("wheel", handleWheel, { passive: false });
-      return () => window.removeEventListener("wheel", handleWheel);
-    }, 
-  []);
+      const current = rawScroll.get();
+      const next = clamp(current + deltaY * 0.001, 0, 1); // Adjust sensitivity here
+      rawScroll.set(next);
+    };
+    
+    // Add event listeners
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
+    
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, []);
 
   // Update dot position along path
 useEffect(() => {
