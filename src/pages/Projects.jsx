@@ -16,7 +16,19 @@ const Projects = () => {
         const fetchReposAndLanguages = async() => {
             try {
                 const res = await fetch("https://api.github.com/users/devinstanley/repos?sort=updated");
-                const data = await res.json()
+                
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                
+                const data = await res.json();
+                console.log('API Response:', data); // Debug log
+                
+                // Check if data is an array
+                if (!Array.isArray(data)) {
+                    console.error('API did not return an array:', data);
+                    return;
+                }
                 const filteredRepos = data.filter(repo => ! repo.fork)
                 setRepos(filteredRepos)
 
