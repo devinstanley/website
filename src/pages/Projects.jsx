@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import '../styles/Projects.css'
 
 const Projects = () => {
     const [repos, setRepos] = useState([]);
@@ -13,9 +14,9 @@ const Projects = () => {
     }, []);
 
     return (
-        <div>
+        <div className="tile-container">
             {repos.map(repo => (
-                <div key={repo.id}>
+                <div className="git-tile" key={repo.id}>
                     <h2>{repo.name}</h2>
                     <p>{repo.description}</p>
                     <div>
