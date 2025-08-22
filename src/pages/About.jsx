@@ -119,6 +119,10 @@ const About = () => {
       rawScroll.set(next);
     };
     
+    const handleTouchEnd = () => {
+      // No transition, just stop
+    };
+    
     // Add event listeners
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: false });
