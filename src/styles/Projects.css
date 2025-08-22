@@ -14,3 +14,52 @@
     padding: 0rem;
     margin: 0rem;
 }
+
+.languages-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.language-pill {
+    display: inline-block;
+    background-color: #70a9a1;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid #70a9a1;
+    transition: all 0.3s ease;
+}
+
+.language-pill:hover {
+    background-color: #7db5ae;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.loading-text {
+    color: #7d6f86;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.git-links {
+    color: #ffffff;
+    display: inline-flex;  /* Change to inline-flex */
+    align-items: center;   /* Vertically center items */
+    gap: 8px;             /* Add space between text and icon */
+    background-color: #7d6f86;
+    padding: 8px 16px;    /* Add horizontal padding for better look */
+    border-radius: 20px;
+    font-size: 1rem;
+    text-decoration: none; /* Remove underline */
+    transition: all 0.3s ease; /* Optional: smooth hover effect */
+}
+
+.git-links:hover {
+    background-color: #8a7c94; /* Optional: lighter shade on hover */
+    text-decoration: none;      /* Ensure no underline on hover */
+}
