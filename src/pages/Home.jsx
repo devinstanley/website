@@ -14,6 +14,10 @@ const Home = () => {
                 centerX: Math.random() * 100,
                 centerY: Math.random() * 100,
                 maxDistance: 20 + Math.random() * 30,
+                particleInteracting: false,
+                // Offset From Mouse Interaction
+                currentOffsetX: 0,
+                currentOffsetY: 0,
 
                 // Ambient Values for Automatic Movement
                 animationDuration: (2 + Math.random() * 4),
@@ -48,14 +52,10 @@ const Home = () => {
         const particle = particlePositions.current[index];
         if (!particle) return null;
 
-        let offsetX = 0;
-        let offsetY = 0;
-
         if (!isMouseIdle) {
             // Calculate Mouse Influence
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
-
             //Convert Percentage to Pixel Positions
             const centerX = (particle.centerX / 100) * viewportWidth;
             const centerY = (particle.centerY / 100) * viewportHeight;
@@ -64,23 +64,28 @@ const Home = () => {
             const deltaX = mousePos.x - centerX;
             const deltaY = mousePos.y - centerY;
             const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            
+           
             // Max Influence Distance
             const maxInfluence = 300;
             const influence = Math.max(0, 1 - (distance / maxInfluence));
-            
-            // Calculate Offset
-            offsetX = (deltaX / distance || 0) * particle.maxDistance * influence;
-            offsetY = (deltaY / distance || 0) * particle.maxDistance * influence;
+           
+            // Calculate Offset in pixels
+            particle.currentOffsetX = (deltaX / distance || 0) * particle.maxDistance * influence;
+            particle.currentOffsetY = (deltaY / distance || 0) * particle.maxDistance * influence;
         }
+
+        // Convert pixel offsets to percentage
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const offsetXPercent = (particle.currentOffsetX / viewportWidth) * 100;
+        const offsetYPercent = (particle.currentOffsetY / viewportHeight) * 100;
 
         return (
             <div 
                 className={`interactive-particle ${isMouseIdle ? 'floating' : ''}`}
                 style = {{
-                    left: `${particle.centerX}%`,
-                    top: `${particle.centerY}%`,
-                    transform: `translate(${offsetX}px, ${offsetY}px)`,
+                    left: `${particle.centerX + offsetXPercent}%`,
+                    top: `${particle.centerY + offsetYPercent}%`,
                     animationDuration: isMouseIdle ? `${particle.animationDuration}s` : 'none',
                     animationDelay: isMouseIdle ? `${particle.animationDelay}s` : 'none'
                 }}
