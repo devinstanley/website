@@ -1,0 +1,22 @@
+.particles-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.interactive-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #EDAE49;
+    border-radius: 50%;
+    opacity: 0.8;
+
+    /* glowing effect */
+    box-shadow: 
+        0 0 6px rgba(237, 174, 73, 0.8),   /* inner glow */
+        0 0 12px rgba(237, 174, 73, 0.6),  /* middle glow */
+        0 0 24px rgba(255, 220, 150, 0.4); /* outer glow */
+    
+    transition: all 0.5s ease-out;
+}
