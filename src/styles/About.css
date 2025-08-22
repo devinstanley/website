@@ -6,6 +6,7 @@
     width: 100vw;
     background: inherit;
     overflow: visible;
+    touch-action: none;
 }
 
 .svg {
@@ -56,6 +57,8 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     z-index: 15;
     user-select: text;
+    max-width: calc(100vw - 40px);
+    box-sizing: border-box;
 }
 
 .milestone-card h3{
@@ -66,4 +69,11 @@
     margin: 0;
     font-size: 14px;
     line-height: 1.4;
+}
+
+@media (max-width: 768px){
+    .milestone-card {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
 }
