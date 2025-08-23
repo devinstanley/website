@@ -100,6 +100,9 @@ const Home = () => {
                     <InteractiveParticle key={i} index={i} />
                 ))}
             </div>
+            <div>
+                <h1>Hello, I'm Devin</h1>
+            </div>
         </div>
     )
 }
