@@ -9,6 +9,7 @@ const NavBar = () => {
                 <NavLink className='nav-link' to="/">Home</NavLink>
                 <NavLink className='nav-link' to="/projects">Projects</NavLink>
                 <NavLink className='nav-link' to="/about">About</NavLink>
+                <NavLink className='nav-link' to="/apps">Apps</NavLink>
             </div>
             <div className="social-icons">
                 <a href="https://github.com/devinstanley" target="_blank" rel="noopener noreferrer" aria-label='GitHub'>
