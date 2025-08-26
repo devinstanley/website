@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import '../styles/Home.css'
+import headshot from "../resources/Devin_Headshot_Temp.png";
 
 const Home = () => {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0});
@@ -103,15 +104,24 @@ const Home = () => {
             <div className="hero">
                 <div className="hero-introduction">
                     <img className="hero-headshot"
-
+                        src={headshot}
                     />
                     <h1 className="hero-name">Devin Stanley</h1>
                     <p className="description">This is a short description of me!</p>
                 </div>
                 <div className="hero-nav">
-                    <div className="hero-card">Card 1</div>
-                    <div className="hero-card">Card 2</div>
-                    <div className="hero-card">Card 3</div>
+                    <div className="hero-card">
+                        <h3>1</h3>
+                        <p>Desc 1</p>
+                    </div>
+                    <div className="hero-card">
+                        <h3>2</h3>
+                        <p>Desc 2</p>
+                    </div>
+                    <div className="hero-card">
+                        <h3>3</h3>
+                        <p>Desc 3</p>
+                    </div>
                 </div>
             </div>
         </div>

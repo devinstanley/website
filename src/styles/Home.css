@@ -96,11 +96,11 @@
 .hero {
     display: flex;
     flex-direction: column; /* Stack vertically on mobile by default */
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     gap: 2rem; /* Add some space between sections */
     padding: 4rem 5%; /* Reduce padding on mobile */
-    min-height: 50vh;
+    min-height: 60vh;
     background: inherit;
     overflow: hidden;
     z-index: 2;
@@ -111,7 +111,8 @@
 @media (min-width: 768px) {
     .hero {
         flex-direction: row; /* Side by side on desktop */
-        justify-content: space-between;
+        align-items: stretch;
+        justify-content: center;
         padding: 4rem 10%;
         gap: 4rem;
     }
@@ -119,7 +120,15 @@
 
 .hero-introduction {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
 }
 
 .hero-headshot {
@@ -128,12 +137,13 @@
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid white;
-    margin-bottom: 1rem;
+    margin: 0 auto 1rem auto;
 }
 
 .hero-name {
   font-size: 2.5rem;
   margin: 0.5rem 0;
+  color: #333;
 }
 
 .hero-description {
@@ -141,25 +151,84 @@
   max-width: 400px;
   margin: 0 auto;
   line-height: 1.5;
-  color: #ddd;
+  color: #666;
 }
 
 .hero-nav {
     flex: 1;
     display: grid;
     gap: 1.5rem;
+    align-content: stretch;
+    grid-template-rows: 1fr 1fr 1fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Dynamic grid sizing on hover */
+.hero-nav:hover {
+    grid-template-rows: 0.7fr 0.7fr 0.7fr; /* Default when no specific card is hovered */
+}
+
+.hero-nav:has(.hero-card:nth-child(1):hover) {
+    grid-template-rows: 1.6fr 0.7fr 0.7fr;
+}
+.hero-nav:has(.hero-card:nth-child(2):hover) {
+    grid-template-rows: 0.7fr 1.6fr 0.7fr;
+}
+.hero-nav:has(.hero-card:nth-child(3):hover) {
+    grid-template-rows: 0.7fr 0.7fr 1.6fr;
 }
 
 .hero-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.75);
     padding: 2rem;
     border-radius: 1rem;
     text-align: center;
     font-size: 1.2rem;
     cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-nav:hover .hero-card:not(:hover) {
+    opacity: 0.6;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .hero-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 20px rgba(237, 174, 73, 0.3);
+    z-index: 10;
+}
+
+.hero-card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.4rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.hero-card p {
+    margin: 0;
+    color: #666;
+    line-height: 1.4;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.hero-nav:hover .hero-card:not(:hover) p {
+    opacity: 0;
+    transform: translateY(-10px);
+    height: 0;
+    margin: 0;
+}
+
+.hero-nav:hover .hero-card:not(:hover) h3 {
+    margin-bottom: 0;
 }
