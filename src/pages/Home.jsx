@@ -94,14 +94,25 @@ const Home = () => {
     };
 
     return (
-        <div>
+        <div className="page-container">
             <div className="particles-container">
                 {[...Array(300)].map((_, i) => (
                     <InteractiveParticle key={i} index={i} />
                 ))}
             </div>
-            <div>
-                <h1>Hello, I'm Devin</h1>
+            <div className="hero">
+                <div className="hero-introduction">
+                    <img className="hero-headshot"
+
+                    />
+                    <h1 className="hero-name">Devin Stanley</h1>
+                    <p className="description">This is a short description of me!</p>
+                </div>
+                <div className="hero-nav">
+                    <div className="hero-card">Card 1</div>
+                    <div className="hero-card">Card 2</div>
+                    <div className="hero-card">Card 3</div>
+                </div>
             </div>
         </div>
     )

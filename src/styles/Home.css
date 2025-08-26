@@ -3,7 +3,7 @@
     inset: 0;
     pointer-events: none;
     overflow: hidden;
-    z-index: 1;
+    z-index: 0;
 }
 
 .interactive-particle {
@@ -93,17 +93,61 @@
 }
 
 
-h1 {
-    font-size: 10vw;
-    text-align: center;
-    position: relative;
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 10%;
+    min-height: 50vh;
+    background: transparent;
+    overflow: hidden;
     z-index: 2;
-    opacity: 1;
-    user-select: none;
-    background: linear-gradient(to bottom, #585191, #70A9A1);
-    -webkit-background-clip: text; /* For Chrome, Safari */
-    -webkit-text-fill-color: transparent; /* Makes the gradient visible */
-    background-clip: text; /* Standard */
-    color: transparent; /* Fallback */
-    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.5); /* Adds a border around the text */
+    position: relative;
+}
+
+.hero-introduction {
+    flex: 1;
+    text-align: center;
+}
+
+.hero-headshot {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    margin-bottom: 1rem;
+}
+
+.hero-name {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.hero-nav {
+    flex: 1;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.hero-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.hero-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.2);
 }
