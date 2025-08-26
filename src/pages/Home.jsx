@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import '../styles/Home.css'
 import headshot from "../resources/Devin_Headshot_Temp.png";
+import { FaGraduationCap, FaBriefcase, FaFileDownload } from 'react-icons/fa';
 
 const Home = () => {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0});
@@ -111,16 +112,40 @@ const Home = () => {
                 </div>
                 <div className="hero-nav">
                     <div className="hero-card">
-                        <h3>1</h3>
-                        <p>Desc 1</p>
+                        <h3>Explore Projects</h3>
+                        <p className="short-description">Browse my GitHub repositories and development work.</p>
+                        <p className="card-sub-description">
+                            <div className="line">
+                                View code samples, technical implementations, and project details
+                            </div>
+                        </p>
                     </div>
                     <div className="hero-card">
-                        <h3>2</h3>
-                        <p>Desc 2</p>
+                        <h3>Try Interactive Apps</h3>
+                        <p className="short-description">Experience live demonstrations.</p>
+                        <p className="card-sub-description">
+                            <div className="line">
+                                Hands-on applications showcasing various technologies and solutions
+                            </div>
+                        </p>
                     </div>
                     <div className="hero-card">
-                        <h3>3</h3>
-                        <p>Desc 3</p>
+                        <h3>Download Resume</h3>
+                        <p className="short-description">Get my credentials and contact information.</p>
+                        <p className="card-sub-description">
+                            <div className="line">
+                                <FaGraduationCap/>
+                                  M.S. Computational Science and B.S. Applied Mathematics
+                            </div>
+                            <div className="line">
+                                <FaBriefcase/>
+                                 3+ Years of .NET WPF, Python Data Workflows, and LabVIEW Development
+                            </div>
+                            <div className="line">
+                                <FaFileDownload/>
+                                 Download My Resume
+                            </div>
+                        </p>
                     </div>
                 </div>
             </div>
