@@ -95,14 +95,26 @@
 
 .hero {
     display: flex;
+    flex-direction: column; /* Stack vertically on mobile by default */
     align-items: center;
-    justify-content: space-between;
-    padding: 4rem 10%;
+    justify-content: center;
+    gap: 2rem; /* Add some space between sections */
+    padding: 4rem 5%; /* Reduce padding on mobile */
     min-height: 50vh;
-    background: transparent;
+    background: inherit;
     overflow: hidden;
     z-index: 2;
     position: relative;
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+    .hero {
+        flex-direction: row; /* Side by side on desktop */
+        justify-content: space-between;
+        padding: 4rem 10%;
+        gap: 4rem;
+    }
 }
 
 .hero-introduction {
