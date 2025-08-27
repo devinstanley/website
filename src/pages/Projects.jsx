@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import '../styles/Projects.css'
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 
 const Projects = () => {
     const [repos, setRepos] = useState([]);
