@@ -10,7 +10,7 @@
 
 @media (max-width: 767px){
     .hero-nav{
-        max-height: 50vh;
+        height: fit-content;
         overflow-y: auto;
         scroll-behavior: smooth;
     }

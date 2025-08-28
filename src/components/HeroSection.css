@@ -5,12 +5,16 @@
     justify-content: center;
     gap: 2rem;
     padding: 4rem 5%;
-    min-height: 60vh;
-    max-height: 60vh;
     background: inherit;
     overflow: hidden;
     z-index: 2;
     position: relative;
+}
+
+@media (max-width: 767px) {
+    .hero {
+        height: fit-content;
+    }
 }
 
 @media (min-width: 768px) {
