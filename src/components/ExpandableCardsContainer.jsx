@@ -36,7 +36,7 @@ const ExpandableCardsContainer = ({ cards, className = ""}) => {
         cardRefs.current.forEach((card, index) => {
             if (!card) return;
 
-            const cardRect = card.getBouindingClientRect();
+            const cardRect = card.getBoundingClientRect();
             const cardCenter = cardRect.top + cardRect.height / 2;
             const distance = Math.abs(cardCenter - containerCenter);
 
