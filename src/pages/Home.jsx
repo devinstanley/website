@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import '../styles/Home.css'
 import headshot from "../resources/Devin_Headshot_Temp.png";
+import HeroSection from "../components/HeroSection";
 import { FaGraduationCap, FaBriefcase, FaFileDownload } from 'react-icons/fa';
 
 const Home = () => {
@@ -95,6 +96,51 @@ const Home = () => {
         );
     };
 
+    const heroData = {
+        name: "Devin Stanley",
+        description: "This is a short description of me!",
+        headshot: headshot
+    };
+
+    const navigationCards = [
+        {
+            id: 'projects',
+            title: "Explore Projects",
+            shortDescription: "Browse my GitHub repositories and development work.",
+            subDescription: "View code samples, technical implementations, and project details",
+            link: "/projects" // Update with your actual route
+        },
+        {
+            id: 'apps',
+            title: "Try Interactive Apps",
+            shortDescription: "Experience live demonstrations.",
+            subDescription: "Hands-on applications showcasing various technologies and solutions",
+            link: "/apps" // Update with your actual route
+        },
+        {
+            id: 'resume',
+            title: "Download Resume",
+            shortDescription: "Get my credentials and contact information.",
+            subDescription: (
+                <>
+                    <div className="line">
+                        <FaGraduationCap/>
+                        M.S. Computational Science and B.S. Applied Mathematics
+                    </div>
+                    <div className="line">
+                        <FaBriefcase/>
+                        3+ Years of .NET WPF, Python Data Workflows, and LabVIEW Development
+                    </div>
+                    <div className="line">
+                        <FaFileDownload/>
+                        Download My Resume
+                    </div>
+                </>
+            ),
+            link: "/resume.pdf" // Update with your actual resume path
+        }
+    ];
+
     return (
         <div className="page-container">
             <div className="particles-container">
@@ -102,53 +148,7 @@ const Home = () => {
                     <InteractiveParticle key={i} index={i} />
                 ))}
             </div>
-            <div className="hero">
-                <div className="hero-introduction">
-                    <img className="hero-headshot"
-                        src={headshot}
-                    />
-                    <h1 className="hero-name">Devin Stanley</h1>
-                    <p className="description">This is a short description of me!</p>
-                </div>
-                <div className="hero-nav">
-                    <div className="hero-card">
-                        <h3>Explore Projects</h3>
-                        <p className="short-description">Browse my GitHub repositories and development work.</p>
-                        <p className="card-sub-description">
-                            <div className="line">
-                                View code samples, technical implementations, and project details
-                            </div>
-                        </p>
-                    </div>
-                    <div className="hero-card">
-                        <h3>Try Interactive Apps</h3>
-                        <p className="short-description">Experience live demonstrations.</p>
-                        <p className="card-sub-description">
-                            <div className="line">
-                                Hands-on applications showcasing various technologies and solutions
-                            </div>
-                        </p>
-                    </div>
-                    <div className="hero-card">
-                        <h3>Download Resume</h3>
-                        <p className="short-description">Get my credentials and contact information.</p>
-                        <p className="card-sub-description">
-                            <div className="line">
-                                <FaGraduationCap/>
-                                  M.S. Computational Science and B.S. Applied Mathematics
-                            </div>
-                            <div className="line">
-                                <FaBriefcase/>
-                                 3+ Years of .NET WPF, Python Data Workflows, and LabVIEW Development
-                            </div>
-                            <div className="line">
-                                <FaFileDownload/>
-                                 Download My Resume
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <HeroSection heroData={heroData} navigationCards={navigationCards} />
         </div>
     )
 }

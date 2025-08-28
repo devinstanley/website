@@ -1,0 +1,70 @@
+.hero-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media (max-width: 767px){
+    .hero-nav{
+        max-height: 50vh;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+
+    .hero-card.card-in-view {
+        min-height: 200px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-card:not(.card-in-view) .short-description {
+        opacity: 0.5;
+        height: 0;
+        overflow: hidden;
+    }
+
+
+}
+
+@media (min-width: 768px){
+    .hero-nav.nav-hover .hero-card {
+        flex: 1;
+    }
+
+    .hero-nav.nav-hover .hero-card.card-expanded {
+        flex: 8;
+    }
+
+    .hero-nav.nav-hover .hero-card:not(.card-expanded) {
+        flex: 0.5;
+        opacity: 0.6;
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-nav.nav-hover .hero-card:not(.card-expanded) .short-description {
+        opacity: 0;
+        transform: translateY(-10px);
+        height: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .hero-nav.nav-hover .hero-card:not(.card-expanded) h3 {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        margin: 0;
+    }
+
+    .hero-nav.nav-hover .hero-card.card-expanded h3 {
+        text-align: center;
+        margin: 0 0 1rem 0;
+        flex-grow: 0;
+    }
+}

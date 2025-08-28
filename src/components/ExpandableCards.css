@@ -1,0 +1,90 @@
+.hero-card {
+    background:  rgba(255, 255, 255, 0.75);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.hero-card a {
+    text-decoration: none;
+}
+
+.hero-card h3 {
+    margin-bottom: 0rem;
+}
+
+@media (max-width: 767px){
+    .hero-card {
+        min-height: 120px;
+        transition: all 0.3s ease;
+    }
+}
+
+@media (min-width: 768px){
+    .hero-card {
+        flex: 1;
+    }
+}
+
+.hero-card:hover,
+.hero-card:focus {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 20px rgba(237, 174, 73, 0.3);
+    z-index: 10;
+}
+
+.hero-card:focus{
+    outline: 2px solid #EDAE49;
+    outline-offset: 2px;
+}
+
+.hero-card:focus-visible{
+    margin: 0 0 1rem 0;
+    font-size: 1.4rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.hero-card .short-description{
+    margin: 0;
+    color: #666;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
+.card-sub-description {
+    height: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
+.hero-card:hover .card-sub-description,
+.hero-card.card-expanded .card-sub-description {
+    opacity: 1;
+    transform: translateY(0);
+    height: auto;
+    margin-top: 1.2rem;
+}
