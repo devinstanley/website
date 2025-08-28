@@ -10,9 +10,11 @@
 
 @media (max-width: 767px){
     .hero-nav{
-        height: fit-content;
+        max-height: none;
         overflow-y: auto;
         scroll-behavior: smooth;
+        display: flex;
+        flex-direction: column;
     }
 
     .hero-card.card-in-view {

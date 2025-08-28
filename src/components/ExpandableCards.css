@@ -82,7 +82,8 @@
 }
 
 .hero-card:hover .card-sub-description,
-.hero-card.card-expanded .card-sub-description {
+.hero-card.card-expanded .card-sub-description,
+.hero-card.card-in-view .card-sub-description {
     opacity: 1;
     transform: translateY(0);
     height: auto;
