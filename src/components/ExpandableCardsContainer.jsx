@@ -22,23 +22,24 @@ const ExpandableCardsContainer = ({ cards, className = ""}) => {
 
     // Mobile Scroll Handler
     const handleScroll = useCallback(() => {
-        if (window.innerWidth >= 768) return; // Only Done on Mobile
-
-        const navContainer = navRef.current;
-        if (!navContainer) return;
-
-        const containerRect = navContainer.getBoundingClientRect();
-        const containerCenter = containerRect.top + containerRect.hoveredCardIndex / 2;
+        if (window.innerWidth >= 768) return;
 
         let closestCard = 0;
         let closestDistance = Infinity;
+
+        const viewportCenter = 3 * window.innerHeight / 4;
+
+        console.log('--- Scroll detected ---');
+        console.log('Container center:', viewportCenter);
 
         cardRefs.current.forEach((card, index) => {
             if (!card) return;
 
             const cardRect = card.getBoundingClientRect();
             const cardCenter = cardRect.top + cardRect.height / 2;
-            const distance = Math.abs(cardCenter - containerCenter);
+            const distance = Math.abs(cardCenter - viewportCenter);
+
+            console.log(`Card ${index}: center=${cardCenter}, distance=${distance}`);
 
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -46,22 +47,18 @@ const ExpandableCardsContainer = ({ cards, className = ""}) => {
             }
         });
 
+        console.log('Closest card:', closestCard);
+        console.log('-----------------------');
+
         setInViewCardIndex(closestCard);
     }, []);
 
     // Mobile Scroll Listener
     useEffect(() => {
-        const navContainer = navRef.current;
-        if (navContainer) {
-            navContainer.addEventListener('scroll', handleScroll);
-            handleScroll();
-        }
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
 
-        return () => {
-            if (navContainer){
-                navContainer.removeEventListener('scroll', handleScroll)
-            }
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
     // Handle Resize
