@@ -107,15 +107,37 @@ const Home = () => {
             id: 'projects',
             title: "Explore Projects",
             shortDescription: "Browse my GitHub repositories and development work.",
-            subDescription: "View code samples, technical implementations, and project details",
-            link: "/projects" // Update with your actual route
+            subDescription: (
+                <>
+                    <div className="line">
+                        <FaGraduationCap/>
+                        
+                    </div>
+                    <div className="line">
+                        <FaGraduationCap/>
+                        
+                    </div>
+                </>
+            ),
+            link: "/projects"
         },
         {
             id: 'apps',
             title: "Try Interactive Apps",
             shortDescription: "Experience live demonstrations.",
-            subDescription: "Hands-on applications showcasing various technologies and solutions",
-            link: "/apps" // Update with your actual route
+            subDescription: (
+                <>
+                    <div className="line">
+                        <FaGraduationCap/>
+                        
+                    </div>
+                    <div className="line">
+                        <FaGraduationCap/>
+                        
+                    </div>
+                </>
+            ),
+            link: "/apps"
         },
         {
             id: 'resume',
@@ -129,7 +151,7 @@ const Home = () => {
                     </div>
                     <div className="line">
                         <FaBriefcase/>
-                        3+ Years of .NET WPF, Python Data Workflows, and LabVIEW Development
+                        3+ Years of .NET WPF and Python Data Workflow Development
                     </div>
                     <div className="line">
                         <FaFileDownload/>
