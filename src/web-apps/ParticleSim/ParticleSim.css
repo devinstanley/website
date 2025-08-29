@@ -1,0 +1,93 @@
+.particles-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.interactive-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #EDAE49;
+    border-radius: 50%;
+    opacity: 0.8;
+    
+    transition: transform 0.1s ease-out;
+    
+    /* Flare Effect */
+    box-shadow: 
+        0 0 6px rgba(237, 174, 73, 0.8),   /* inner glow */
+        0 0 12px rgba(237, 174, 73, 0.6),  /* middle glow */
+        0 0 24px rgba(255, 220, 150, 0.4); /* outer glow */
+        
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    z-index: 1;
+}
+
+/* Mouse Idle Animation*/
+.interactive-particle.floating {
+    animation: smoothFloat infinite ease-in-out;
+}
+
+/* Varying Patterns */
+.interactive-particle.floating:nth-child(3n) {
+    animation-name: smoothFloat;
+}
+
+.interactive-particle.floating:nth-child(3n+1) {
+    animation-name: smoothFloatVariant1;
+}
+
+.interactive-particle.floating:nth-child(3n+2) {
+    animation-name: smoothFloatVariant2;
+}
+
+/* Floating Animations */
+@keyframes smoothFloat {
+    0%, 100% { 
+        transform: translate(0px, 0px);
+    }
+    25% { 
+        transform: translate(8px, -12px);
+    }
+    50% { 
+        transform: translate(-6px, -8px);
+    }
+    75% { 
+        transform: translate(-10px, 4px);
+    }
+}
+
+@keyframes smoothFloatVariant1 {
+    0%, 100% { 
+        transform: translate(0px, 0px);
+    }
+    33% { 
+        transform: translate(-12px, -6px);
+    }
+    66% { 
+        transform: translate(10px, -14px);
+    }
+}
+
+@keyframes smoothFloatVariant2 {
+    0%, 100% { 
+        transform: translate(0px, 0px);
+    }
+    20% { 
+        transform: translate(6px, 8px);
+    }
+    40% { 
+        transform: translate(-8px, 12px);
+    }
+    60% { 
+        transform: translate(12px, -4px);
+    }
+    80% { 
+        transform: translate(-4px, -10px);
+    }
+}
