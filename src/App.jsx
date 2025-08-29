@@ -5,10 +5,12 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Home from './pages/Home';
 import Apps from './pages/Apps';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
 
   return (
+    <>
       <Routes>
         <Route path='/' element={ <MainLayout/> }>
           <Route index element={<Home/>}/>
@@ -17,7 +19,9 @@ function App() {
           <Route path='apps' element={<Apps/>}/>
         </Route>
       </Routes>
+      <Analytics/>
+    </>
   )
 }
 
-export default App
+export default App;
