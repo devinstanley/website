@@ -6,7 +6,7 @@ import './ExpandableCardsContainer.css';
 const ExpandableCardsContainer = ({ cards, className = ""}) => {
     const [isNaveHovered, setIsNavHovered] = useState(false);
     const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
-    const [inViewCardIndex, setInViewCardIndex] = useState(0);
+    const [inViewCardIndex, setInViewCardIndex] = useState(-1);
     const navRef = useRef(null);
     const cardRefs = useRef([]);
 
@@ -65,7 +65,7 @@ const ExpandableCardsContainer = ({ cards, className = ""}) => {
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768){
-                setInViewCardIndex(0);
+                setInViewCardIndex(-1);
             } else {
                 handleScroll();
             }
