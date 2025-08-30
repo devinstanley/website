@@ -75,7 +75,7 @@ const Home = () => {
 
     return (
         <div className="page-container">
-            <ParticleSim />
+            <ParticleSim gravity={0} />
             <HeroSection heroData={heroData} navigationCards={navigationCards} />
         </div>
     )
