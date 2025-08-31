@@ -12,6 +12,8 @@ const Home = () => {
         headshot: headshot
     };
 
+    const homeParticleCount = innerWidth > 768 ? 300 : 100;
+
     const navigationCards = [
         {
             id: 'projects',
@@ -75,7 +77,7 @@ const Home = () => {
 
     return (
         <div className="page-container">
-            <ParticleSim gravity={0} />
+            <ParticleSim gravity={0} particleCount={homeParticleCount}/>
             <HeroSection heroData={heroData} navigationCards={navigationCards} />
         </div>
     )
