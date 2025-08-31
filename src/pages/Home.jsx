@@ -12,7 +12,7 @@ const Home = () => {
         headshot: headshot
     };
 
-    const homeParticleCount = innerWidth > 768 ? 300 : 100;
+    const homeParticleCount = innerWidth > 768 ? 300 : 50;
 
     const navigationCards = [
         {
