@@ -4,25 +4,29 @@ import "./ParticleSim.css"
 const ParticleSim = ( {
     showControls = false,
     particleCount = 300,
-    gravity = 0.0,
+    gravity = 0.1,
     friction = 0.98,
     mouseInfluence = 200,
     mousePolarity = -1,
     particleSize = 4,
     bounceStrength = 0.8,
 } ) => {
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const [lastMouseMove, setLastMouseMove] = useState(Date.now());
-    const [isMouseIdle, setIsMouseIdle] = useState(false);
-
     const [params, setParams] = useState({
+        showControls,
         gravity,
         friction,
         mouseInfluence,
+        mousePolarity,
         particleSize,
         bounceStrength,
         particleCount
     });
+    
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const [lastMouseMove, setLastMouseMove] = useState(Date.now());
+    const [isMouseIdle, setIsMouseIdle] = useState(false);
+    const [frameCount, setFrameCount] = useState(0);
+
     
     const particlePositions = useRef([]);
     const animationFrameRef = useRef();
@@ -88,7 +92,10 @@ const ParticleSim = ( {
     }, [lastMouseMove]);
 
     const updatePhysics = useCallback(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current) {
+            animationFrameRef.current = requestAnimationFrame(updatePhysics);
+            return;
+        }
 
         const container = containerRef.current;
         const containerWidth = container.offsetWidth;
@@ -153,14 +160,13 @@ const ParticleSim = ( {
             const speed = Math.sqrt(particle.velocityX * particle.velocityX + particle.velocityY * particle.velocityY);
             particle.isAtRest = speed < particle.restThreshold;
         });
+        setFrameCount(prev => (prev + 1) % 10);
 
         animationFrameRef.current = requestAnimationFrame(updatePhysics);
     }, [isMouseIdle, mousePos, params]);
 
     useEffect(() => {
-        if (true){
-            updatePhysics();
-        }
+        updatePhysics();
 
         return () => {
             if (animationFrameRef.current){
