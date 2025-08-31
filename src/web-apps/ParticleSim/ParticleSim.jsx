@@ -106,8 +106,8 @@ const ParticleSim = ( {
             let pixelX = (particle.centerX / 100) * containerWidth;
             let pixelY = (particle.centerY / 100) * containerHeight;
 
-            // Handle Mouse Influent
-            if (true){
+            // Handle Mouse Influence
+            if (!isMouseIdle){
                 const deltaX = mousePos.x - pixelX;
                 const deltaY = mousePos.y - pixelY;
                 const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -122,9 +122,13 @@ const ParticleSim = ( {
                 }
             }
 
-            if (true){
-                particle.velocityY += params.gravity * particle.mass;
-            }
+            // Enforce Gravity
+            particle.velocityY += params.gravity * particle.mass;
+
+            // Add Constant Perturbation
+            const noiseStrength = 0.1;
+            particle.velocityX += (Math.random() - 0.5) * noiseStrength;
+            particle.velocityY += (Math.random() - 0.5) * noiseStrength;
 
             // Update Positions
             pixelX += particle.velocityX;
