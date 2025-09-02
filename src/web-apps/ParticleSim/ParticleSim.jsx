@@ -34,6 +34,10 @@ const ParticleSim = ( {
     const animationFrameRef = useRef();
     const containerRef = useRef();
 
+    // Batching Particle Updates for Performance
+    const batchSize = 1000;
+    const batchIndexRef = useRef(0);
+
     // Initialize Positions
     useEffect(() => {
         const initializeParticles = () => {
@@ -103,7 +107,12 @@ const ParticleSim = ( {
         const containerWidth = container.offsetWidth;
         const containerHeight = container.offsetHeight;
 
-        particlePositions.current.forEach((particle) => {
+        const start = batchIndexRef.current * batchSize;
+        const end = Math.min(start + batchSize, particlePositions.current.length);
+
+        for (let i = start; i < end; i++) {
+            const particle = particlePositions.current[i];
+
             //Convert Percentage to Pixel Positions
             let pixelX = (particle.centerX / 100) * containerWidth;
             let pixelY = (particle.centerY / 100) * containerHeight;
@@ -165,7 +174,13 @@ const ParticleSim = ( {
             // Check Rest State
             const speed = Math.sqrt(particle.velocityX * particle.velocityX + particle.velocityY * particle.velocityY);
             particle.isAtRest = speed < particle.restThreshold;
-        });
+        };
+
+        batchIndexRef.current++;
+        if (batchIndexRef.current * batchSize >= particlePositions.current.length) {
+            batchIndexRef.current = 0; // Restart Batch
+        }
+
         setFrameCount(prev => (prev + 1) % 10);
 
         animationFrameRef.current = requestAnimationFrame(updatePhysics);
