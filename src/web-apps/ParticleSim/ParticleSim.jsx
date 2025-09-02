@@ -220,7 +220,7 @@ const ParticleSim = ( {
     const handleParamChange = (param, value) => {
         setParams(prev => ({
             ...prev,
-            [param]: parseFloat(value)
+            [param]: typeof value === "boolean" ? value : parseFloat(value)
         }));
     };
 
@@ -310,8 +310,8 @@ const ParticleSim = ( {
                         <input
                             label="Idle Mouse Interact"
                             type="checkbox"
-                            value={params.particleSize}
-                            onChange={(e) => handleParamChange("idleMouseInteraction", e.target.value)}
+                            checked={params.idleMouseInteraction}
+                            onChange={(e) => handleParamChange("idleMouseInteraction", e.target.checked)}
                         />
                     </div>
                 </div>
