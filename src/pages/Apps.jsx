@@ -1,7 +1,10 @@
+import "../web-apps/ParticleSim/ParticleSim";
+import ParticleSim from "../web-apps/ParticleSim/ParticleSim";
+
 const Apps = () =>{
     return (
         <div>
-            <h1>Apps Incoming!</h1>
+            <ParticleSim showControls="true"/>
         </div>
     )
 }
