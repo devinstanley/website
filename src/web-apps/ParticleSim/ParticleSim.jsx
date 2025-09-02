@@ -10,6 +10,7 @@ const ParticleSim = ( {
     mousePolarity = -1,
     particleSize = 4,
     bounceStrength = 0.8,
+    idleMouseInteraction = false
 } ) => {
     const [params, setParams] = useState({
         showControls,
@@ -19,7 +20,8 @@ const ParticleSim = ( {
         mousePolarity,
         particleSize,
         bounceStrength,
-        particleCount
+        particleCount,
+        idleMouseInteraction
     });
     
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -107,7 +109,7 @@ const ParticleSim = ( {
             let pixelY = (particle.centerY / 100) * containerHeight;
 
             // Handle Mouse Influence
-            if (!isMouseIdle){
+            if (!isMouseIdle || params.idleMouseInteraction){
                 const deltaX = mousePos.x - pixelX;
                 const deltaY = mousePos.y - pixelY;
                 const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -200,8 +202,105 @@ const ParticleSim = ( {
         );
     };
 
+    const handleParamChange = (param, value) => {
+        setParams(prev => ({
+            ...prev,
+            [param]: parseFloat(value)
+        }));
+    };
+
     return (
         <div>
+            {showControls && (
+                <div className="options-container">
+                    <div className="option">
+                        <label className="param-label">Bounce Strength</label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="2"
+                            step="0.5"
+                            value={params.bounceStrength}
+                            onChange={(e) => handleParamChange("bounceStrength", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Air Friction</label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={params.friction}
+                            onChange={(e) => handleParamChange("friction", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Gravity</label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="0.5"
+                            step="0.05"
+                            value={params.gravity}
+                            onChange={(e) => handleParamChange("gravity", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Mouse Polarity</label>
+                        <input
+                            type="range"
+                            min="-1"
+                            max="1"
+                            step="2"
+                            value={params.mousePolarity}
+                            onChange={(e) => handleParamChange("mousePolarity", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Mouse Influence Radius</label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="2000"
+                            step="2"
+                            value={params.mouseInfluence}
+                            onChange={(e) => handleParamChange("mouseInfluence", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Particle Count</label>
+                        <input
+                            type="range"
+                            min="10"
+                            max="500"
+                            step="10"
+                            value={params.particleCount}
+                            onChange={(e) => handleParamChange("particleCount", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Particle Size</label>
+                        <input
+                            type="range"
+                            min="2"
+                            max="6"
+                            step="0.5"
+                            value={params.particleSize}
+                            onChange={(e) => handleParamChange("particleSize", e.target.value)}
+                        />
+                    </div>
+                    <div className="option">
+                        <label className="param-label">Idle Mouse Interact</label>
+                        <input
+                            label="Idle Mouse Interact"
+                            type="checkbox"
+                            value={params.particleSize}
+                            onChange={(e) => handleParamChange("idleMouseInteraction", e.target.value)}
+                        />
+                    </div>
+                </div>
+            )}
             <div 
              ref={containerRef}
              className="particles-container">
