@@ -8,8 +8,8 @@ const NavBar = () => {
             <div className='nav-links'>
                 <NavLink className='nav-link' to="/">Home</NavLink>
                 <NavLink className='nav-link' to="/projects">Projects</NavLink>
-                <NavLink className='nav-link' to="/about">About</NavLink>
                 <NavLink className='nav-link' to="/apps">Apps</NavLink>
+                <NavLink className='nav-link' to="/about">About</NavLink>
             </div>
             <div className="social-icons">
                 <a href="https://github.com/devinstanley" target="_blank" rel="noopener noreferrer" aria-label='GitHub'>
