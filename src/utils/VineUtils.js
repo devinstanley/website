@@ -7,6 +7,7 @@ export const segmentsToPath = (segments) => {
     }
     path += `C ${seg.control1.x} ${seg.control1.y}, ${seg.control2.x} ${seg.control2.y}, ${seg.end.x} ${seg.end.y} `;
   });
+  console.log(path);
   return path.trim();
 };
 
@@ -100,4 +101,48 @@ export const generateVine = (width, height, segments = 8) => {
     currentTangent = newTangent;
     }
   return vineSegments
+}
+
+// Generate Simple Vertical Line
+export const generateVerticalLine = (width, height, segments = 8) => {
+  const lineSegments = [];
+  const margin = Math.min(width, height) * 0.1;
+  const usableHeight = height * 0.85;
+  const centerX = width / 2;
+  const startY = height - margin * 0.8;
+  const segmentHeight = usableHeight / segments;
+
+  let currentPoint = { x: centerX, y: startY };
+
+  for (let i = 0; i < segments; i++) {
+    const nextPoint = {
+      x: centerX,
+      y: currentPoint.y - segmentHeight
+    };
+
+    // Create Line Control Points
+    const controlDistance = segmentHeight / 3;
+    
+    const control1 = {
+      x: centerX,
+      y: currentPoint.y - controlDistance
+    };
+    
+    const control2 = {
+      x: centerX,
+      y: nextPoint.y + controlDistance
+    };
+
+    lineSegments.push({
+      type: "cubic",
+      start: currentPoint,
+      control1: control1,
+      control2: control2,
+      end: nextPoint
+    });
+
+    currentPoint = nextPoint;
+  }
+
+  return lineSegments;
 }

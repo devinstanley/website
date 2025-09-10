@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { generateVine, segmentsToPath } from "../utils/VineUtils";
+import { generateVine, segmentsToPath, generateVerticalLine } from "../utils/VineUtils";
 import '../styles/About.css'
 
 const milestones = [
@@ -84,7 +84,7 @@ const About = () => {
       const updatePath = () => {
         const w = window.innerWidth;
         const h = window.innerHeight;
-        setPathData(segmentsToPath(generateVine(w, h, 12)));
+        setPathData(segmentsToPath(generateVerticalLine(w, h, 12)));
       };
 
       updatePath();
@@ -182,7 +182,7 @@ useEffect(() => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="vineGradient" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="vineGradient" x1="0" y1="0" x2="0" y2={window.innerHeight} gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="#6DBE45" />
               <stop offset="100%" stopColor="#2E7D32" />
             </linearGradient>
@@ -201,7 +201,7 @@ useEffect(() => {
             const visible = scrollValue >= positionOnPath + 0.05;
 
             const pathPoint = pathRef.current.getPointAtLength(pathLength * positionOnPath);
-            const side = pathPoint.x < window.innerWidth / 2 ? "right" : "left";
+            const side = idx % 2 === 0 ? "right" : "left";
             const offset = 250;
             const cardX = side === "right" ? pathPoint.x + offset : pathPoint.x - offset;
             const cardY = pathPoint.y + 15;
@@ -246,14 +246,14 @@ useEffect(() => {
         />
 
         {/* Milestone cards */}
-        {milestones.map(({ id, title, content, positionOnPath }) => {
+        {milestones.map(({ id, title, content, positionOnPath }, idx) => {
           const visible = scrollValue >= positionOnPath + 0.08;
 
 
           if (!pathRef.current || pathLength === 0) return null;
 
           const point = pathRef.current.getPointAtLength(pathLength * positionOnPath);
-          const side = point.x < window.innerWidth / 2 ? "right" : "left";
+          const side = idx % 2 === 0 ? "right" : "left";
           const cardOffsetX = 150;
           
           const cardWidth = window.innerWidth / 4
