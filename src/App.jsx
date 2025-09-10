@@ -6,6 +6,7 @@ import Projects from './pages/Projects';
 import Home from './pages/Home';
 import Apps from './pages/Apps';
 import { Analytics } from '@vercel/analytics/react';
+import ParticleSim from "./web-apps/ParticleSim/ParticleSim";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='projects' element={<Projects/>}/>
           <Route path='about' element={<About/>}/>
           <Route path='apps' element={<Apps/>}/>
+          <Route path='apps/particle-sim' element={<ParticleSim showControls="true"/>}/>
         </Route>
       </Routes>
       <Analytics/>
