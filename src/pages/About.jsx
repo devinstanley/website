@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { generateVine, segmentsToPath, generateVerticalLine } from "../utils/VineUtils";
+import { generateVine, segmentsToPath, generateVerticalLine, VineTip } from "../utils/VineUtils";
 import '../styles/About.css'
 
 const milestones = [
@@ -236,14 +236,15 @@ useEffect(() => {
           })}
         </svg>
 
-        {/* Dot traveling the path */}
+        {/* VineTip Traveling Path */}
         <motion.div
-          className="traveling-dot"
+          className="vine-tip"
           style={{
             top: dotY,
             left: dotX
-          }}
-        />
+          }}>
+            <VineTip className="vine-tip-svg"/>
+        </motion.div>
 
         {/* Milestone cards */}
         {milestones.map(({ id, title, content, positionOnPath }, idx) => {
@@ -256,7 +257,7 @@ useEffect(() => {
           const side = idx % 2 === 0 ? "right" : "left";
           const cardOffsetX = 150;
           
-          const cardWidth = window.innerWidth / 4
+          const cardWidth = window.innerWidth / 3
 
           const cardX = side === "right" ? point.x + cardOffsetX : point.x - cardOffsetX - cardWidth;
           const cardY = point.y;
