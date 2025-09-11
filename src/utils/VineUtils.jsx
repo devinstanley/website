@@ -146,3 +146,22 @@ export const generateVerticalLine = (width, height, segments = 8) => {
 
   return lineSegments;
 }
+
+export const VineTip = ({ className }) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" className={className}>
+    <defs>
+      <radialGradient id="vineTipGradient">
+        <stop offset="0%" stopColor="#AED581" />
+        <stop offset="50%" stopColor="#8BC34A" />
+        <stop offset="100%" stopColor="#689F38" />
+      </radialGradient>
+    </defs>
+    {/* Growing bud/sprout shape */}
+    <circle cx="8" cy="8" r="6" fill="url(#vineTipGradient)" />
+    <path
+      d="M8,3 Q6,5 8,8 Q10,5 8,3 M8,8 Q10,10 8,13 Q6,10 8,8"
+      fill="#A5D6A7"
+      opacity="0.8"
+    />
+  </svg>
+);
