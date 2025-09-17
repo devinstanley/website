@@ -8,6 +8,34 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     z-index: 15;
     user-select: text;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.repo-image-container {
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.git-tile:hover .repo-image-container {
+    opacity: 1;
+    transform: translateY(0);
+    width: 65vw;
+}
+
+.repo-image{
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    object-fit: cover;
+    border: 4px solid #7D6F86;
+    max-width: none;
 }
 
 .git-tile h2{
