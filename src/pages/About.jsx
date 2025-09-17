@@ -60,8 +60,59 @@ const interpolateColor = (t, startHex, endHex) => {
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
+const AnimatedBranch = ({
+  branchPath,
+  branchColor,
+  positionOnPath, // where branch starts (0–1 along vine scroll)
+  scrollProgress,
+  onComplete,
+}) => {
+  const pathRef = useRef(null);
+  const dashOffset = useMotionValue(0);
+  const [pathLength, setPathLength] = useState(0);
+
+  useEffect(() => {
+    if (!pathRef.current) return;
+    const length = pathRef.current.getTotalLength();
+    setPathLength(length);
+    dashOffset.set(length); // fully hidden at start
+  }, [branchPath]);
+
+  useEffect(() => {
+    if (pathLength === 0) return;
+
+    // Branch Grows over 5% Scroll Progress
+    const start = positionOnPath;
+    const end = positionOnPath + 0.05;
+
+    const unsubscribe = scrollProgress.on("change", (val) => {
+      const t = (val - start) / (end - start);
+      const clamped = Math.max(0, Math.min(1, t));
+
+      dashOffset.set(pathLength * (1 - clamped));
+
+      if (clamped >= 1 && onComplete) onComplete();
+    });
+
+    return () => unsubscribe();
+  }, [pathLength, positionOnPath, scrollProgress, onComplete]);
+
+  return (
+    <motion.path
+      ref={pathRef}
+      d={branchPath}
+      stroke={branchColor}
+      strokeWidth="3"
+      fill="none"
+      strokeDasharray={pathLength}
+      strokeDashoffset={dashOffset}
+    />
+  );
+};
+
 const About = () => {
   const [scrollValue, setScrollValue] = useState(0);
+  const [branchesCompleted, setBranchesCompleted] = useState({});
   const dotX = useMotionValue(window.innerWidth/2);
   const dotY = useMotionValue(window.innerHeight);
   const containerRef = useRef(null);
@@ -172,6 +223,13 @@ useEffect(() => {
     },
   [scrollProgress, pathLength]);
 
+  const handleBranchComplete = (idx) => {
+    setBranchesCompleted(prev => ({
+      ...prev,
+      [idx]: true
+    }));
+  };
+
   return (
     <>
       {/* Container fills viewport, no scroll */}
@@ -219,19 +277,14 @@ useEffect(() => {
             );
 
             return (
-                <AnimatePresence key={`line-${idx}`}>
-                  {visible && (
-                    <motion.path
-                      className="milestone-branch-path"
-                      d={branchPath}
-                      stroke={branchColor}
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ pathLength: 1, opacity: 1 }}
-                      exit={{ pathLength: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                    />
-                  )}
-                </AnimatePresence>
+                <AnimatedBranch
+                  key={`branch-${idx}`}
+                  branchPath={branchPath}
+                  branchColor={branchColor}
+                  scrollProgress={scrollProgress}
+                  positionOnPath={positionOnPath}
+                  onComplete={() => handleBranchComplete(idx)}
+                />
               );
           })}
         </svg>
@@ -248,7 +301,8 @@ useEffect(() => {
 
         {/* Milestone cards */}
         {milestones.map(({ id, title, content, positionOnPath }, idx) => {
-          const visible = scrollValue >= positionOnPath + 0.08;
+          const branchVisible = scrollValue >= positionOnPath + 0.05;
+          const cardVisible = branchVisible && branchesCompleted[idx];
 
 
           if (!pathRef.current || pathLength === 0) return null;
@@ -257,7 +311,7 @@ useEffect(() => {
           const side = idx % 2 === 0 ? "right" : "left";
           const cardOffsetX = 150;
           
-          const cardWidth = window.innerWidth / 3
+          const cardWidth = window.innerWidth / 3;
 
           const cardX = side === "right" ? point.x + cardOffsetX : point.x - cardOffsetX - cardWidth;
           const cardY = point.y;
@@ -266,7 +320,7 @@ useEffect(() => {
 
           return (
             <AnimatePresence key={id}>
-              {visible && (
+              {cardVisible && (
                 <motion.div
                   className="milestone-card"
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
