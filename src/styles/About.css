@@ -55,6 +55,8 @@
 }
 
 .milestone-card {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     padding: 1rem 1.2rem;
     background: rgba(255, 255, 255, 0.9);
@@ -69,14 +71,23 @@
     transform-origin: top center;
 }
 
-.milestone-card h3{
-    margin: 0 0 0.5rem;
+.card-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
-.milestone-card p{
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
+.card-date {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 8px;
+  font-size: 1.2rem;
+  border: 3px solid #7D6F86;
+  background-color: rgba(112, 169, 161, 0.7);
+
+  border-radius: 11px; /* Slightly less rounding to cover any artifacts */
 }
 
 @media (max-width: 768px){

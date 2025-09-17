@@ -6,21 +6,36 @@ import '../styles/About.css'
 const milestones = [
   {
     id: 1,
-    title: "Bachelors at SDSU",
+    date: "2019 - 2022",
+    title: "BS at SDSU",
+    summary: "I earned my B.S. in Applied Mathematics with an emphasis in Computational Science. I graduated summa cum laude as a Merit Scholar.",
     content:
-      "I graduated with a Bachelors in Applied Mathematics with an Emphasis in Computational Science from San Diego State University. ",
-    positionOnPath: 0.15,
+      "",
+    positionOnPath: 0.25,
   },
   {
     id: 2,
-    title: "Internship 2022",
+    date: "2022 - 2023",
+    title: "Internship",
+    summary: "I worked as an Applied Math Intern after completing my undergraduate degree. During this time I built Python workup scripts and learned Mathematica and LabVIEW.",
     content:
       "",
-    positionOnPath: 0.5,
+    positionOnPath: 0.45,
   },
   {
     id: 3,
-    title: "Masters Degree",
+    date: "2022 - 2024",
+    title: "MS at SDSU",
+    summary: "I pursued my M.S. in Computational Science with an emphasis in Data Science. My thesis research focused on Compress Sensing Seismic Migration.",
+    content:
+      "",
+    positionOnPath: 0.65,
+  },
+  {
+    id: 4,
+    date: "2023 - Current",
+    title: "Software Developer",
+    summary: "I accepted a position as a Junior Software Developer at the company where I had interned. I took ownership of the codebase and expanded it with C# and Python tools.",
     content:
       "",
     positionOnPath: 0.85,
@@ -298,7 +313,7 @@ useEffect(() => {
         </motion.div>
 
         {/* Milestone cards */}
-        {milestones.map(({ id, title, content, positionOnPath }, idx) => {
+        {milestones.map(({ id, date, title, summary, content, positionOnPath }, idx) => {
           const branchVisible = scrollValue >= positionOnPath + 0.05;
           const cardVisible = branchVisible && branchesCompleted[idx];
 
@@ -307,9 +322,8 @@ useEffect(() => {
 
           const point = pathRef.current.getPointAtLength(pathLength * positionOnPath);
           const side = idx % 2 === 0 ? "right" : "left";
-          const cardOffsetX = window.innerWidth / 4;
           
-          const cardWidth = window.innerWidth / 3;
+          const cardWidth = window.innerWidth * 0.4;
 
           const cardX = side === "right" ? window.innerWidth / 2 - cardWidth / 2 + window.innerWidth / 4: window.innerWidth / 2 - cardWidth / 2 - window.innerWidth / 4;
           const cardY = point.y;
@@ -329,8 +343,9 @@ useEffect(() => {
                     width: cardWidth
                   }}
                 >
-                  <h3>{title}</h3>
-                  <p>{content}</p>
+                  <div className="card-title">{title}</div>
+                  <div className="card-date">{date}</div>
+                  <div className="card-summary">{summary}</div>
                 </motion.div>
               )}
             </AnimatePresence>
