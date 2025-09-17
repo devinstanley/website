@@ -66,6 +66,7 @@
     z-index: 15;
     user-select: text;
     box-sizing: border-box;
+    transform-origin: top center;
 }
 
 .milestone-card h3{

@@ -260,13 +260,11 @@ useEffect(() => {
 
             const pathPoint = pathRef.current.getPointAtLength(pathLength * positionOnPath);
             const side = idx % 2 === 0 ? "right" : "left";
-            const offset = 250;
-            const cardX = side === "right" ? pathPoint.x + offset : pathPoint.x - offset;
-            const cardY = pathPoint.y + 15;
+            const cardX = side === "right" ? 3 * window.innerWidth / 4 : window.innerWidth / 4;
+            const cardY = pathPoint.y;
 
-
-            const midX = (pathPoint.x + cardX) / 2.2;
-            const controlY = pathPoint.y - 100; // slightly above for curve
+            const midX = side === "right" ? 5 * window.innerWidth / 8 : 3 * window.innerWidth / 8;
+            const controlY = pathPoint.y - 150; // slightly above for curve
             const branchPath = `M ${pathPoint.x},${pathPoint.y} Q ${midX},${controlY} ${cardX},${cardY}`;
 
             const vineYRatio = pathPoint.y / window.innerHeight;
@@ -309,14 +307,12 @@ useEffect(() => {
 
           const point = pathRef.current.getPointAtLength(pathLength * positionOnPath);
           const side = idx % 2 === 0 ? "right" : "left";
-          const cardOffsetX = 150;
+          const cardOffsetX = window.innerWidth / 4;
           
           const cardWidth = window.innerWidth / 3;
 
-          const cardX = side === "right" ? point.x + cardOffsetX : point.x - cardOffsetX - cardWidth;
+          const cardX = side === "right" ? window.innerWidth / 2 - cardWidth / 2 + window.innerWidth / 4: window.innerWidth / 2 - cardWidth / 2 - window.innerWidth / 4;
           const cardY = point.y;
-
-          
 
           return (
             <AnimatePresence key={id}>
