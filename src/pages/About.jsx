@@ -279,7 +279,7 @@ useEffect(() => {
             const cardY = pathPoint.y;
 
             const midX = side === "right" ? 5 * window.innerWidth / 8 : 3 * window.innerWidth / 8;
-            const controlY = pathPoint.y - 150; // slightly above for curve
+            const controlY = pathPoint.y - window.innerHeight / 10; // slightly above for curve
             const branchPath = `M ${pathPoint.x},${pathPoint.y} Q ${midX},${controlY} ${cardX},${cardY}`;
 
             const vineYRatio = pathPoint.y / window.innerHeight;

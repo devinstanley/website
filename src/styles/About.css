@@ -95,4 +95,19 @@
         font-size: 0.9rem;
         padding: 12px;
     }
+
+    .card-date{
+        position: relative;
+        width: fit-content;
+        border: none;
+        padding: 2px 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-title{
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
 }
