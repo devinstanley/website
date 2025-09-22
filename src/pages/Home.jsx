@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import '../styles/Home.css'
 import headshot from "../resources/Devin_Headshot_Temp.png";
 import HeroSection from "../components/HeroSection";
-import { FaGraduationCap, FaBriefcase, FaFileDownload } from 'react-icons/fa';
+import { FaGraduationCap, FaBriefcase, FaFileDownload, FaWaveSquare, FaAtom, FaFighterJet, FaGamepad } from 'react-icons/fa';
 import ParticleSim from "../web-apps/ParticleSim/ParticleSim";
 
 const Home = () => {
@@ -22,34 +22,17 @@ const Home = () => {
             subDescription: (
                 <>
                     <div className="line">
-                        <FaGraduationCap/>
-                        
+                        <FaWaveSquare/>
+                        <span>Compress Sensing Seismic Migration</span>
                     </div>
                     <div className="line">
-                        <FaGraduationCap/>
+                        <FaGamepad/>
+                        <span>Sky Town</span>
                         
                     </div>
                 </>
             ),
             link: "/projects"
-        },
-        {
-            id: 'apps',
-            title: "Try Interactive Apps",
-            shortDescription: "Experience live demonstrations.",
-            subDescription: (
-                <>
-                    <div className="line">
-                        <FaGraduationCap/>
-                        
-                    </div>
-                    <div className="line">
-                        <FaGraduationCap/>
-                        
-                    </div>
-                </>
-            ),
-            link: "/apps"
         },
         {
             id: 'resume',
@@ -59,20 +42,36 @@ const Home = () => {
                 <>
                     <div className="line">
                         <FaGraduationCap/>
-                        M.S. Computational Science and B.S. Applied Mathematics
+                        <span>M.S. Computational Science and B.S. Applied Mathematics</span>
                     </div>
                     <div className="line">
                         <FaBriefcase/>
-                        3+ Years of .NET WPF and Python Data Workflow Development
+                        <span>3+ Years of .NET WPF and Python Data Workflow Development</span>
                     </div>
                     <div className="line">
                         <FaFileDownload/>
-                        Download My Resume
+                        <span>Download My Resume</span>
                     </div>
                 </>
             ),
             link: "/resume.pdf" // Update with your actual resume path
-        }
+        },
+        {
+            id: 'apps',
+            title: "Try Interactive Apps",
+            shortDescription: "Experience live demonstrations.",
+            subDescription: (
+                <>
+                    <div className="line">
+                        <FaAtom/><span>Simple Particle Simulator</span>
+                    </div>
+                    <div className="line">
+                        <FaFighterJet/><span>More Coming Soon!</span>
+                    </div>
+                </>
+            ),
+            link: "/apps"
+        },
     ];
 
     return (
