@@ -71,6 +71,21 @@
     transform-origin: top center;
 }
 
+.tut-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #222;
+    z-index: 25;
+}
+
 .card-title {
   font-weight: 600;
   font-size: 1.2rem;
@@ -84,10 +99,7 @@
   right: 0;
   padding: 4px 8px;
   font-size: 1.2rem;
-  border: 3px solid #7D6F86;
-  background-color: rgba(112, 169, 161, 0.7);
-
-  border-radius: 11px; /* Slightly less rounding to cover any artifacts */
+  font-weight: 600;
 }
 
 @media (max-width: 768px){

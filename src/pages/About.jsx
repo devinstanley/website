@@ -302,6 +302,19 @@ useEffect(() => {
           })}
         </svg>
 
+        <AnimatePresence>
+          {scrollValue < 0.05 && (
+            <motion.div
+              className="tut-card"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <span>Scroll up to reveal professional milestones.</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* VineTip Traveling Path */}
         <motion.div
           className="vine-tip"
@@ -323,7 +336,7 @@ useEffect(() => {
           const point = pathRef.current.getPointAtLength(pathLength * positionOnPath);
           const side = idx % 2 === 0 ? "right" : "left";
           
-          const cardWidth = window.innerWidth * 0.4;
+          const cardWidth = Math.min(window.innerWidth * 0.4, 500);
 
           const cardX = side === "right" ? window.innerWidth / 2 - cardWidth / 2 + window.innerWidth / 4: window.innerWidth / 2 - cardWidth / 2 - window.innerWidth / 4;
           const cardY = point.y;
