@@ -54,7 +54,7 @@ const Home = () => {
                     </div>
                 </>
             ),
-            link: "/resume.pdf" // Update with your actual resume path
+            link: "/resume"
         },
         {
             id: 'apps',
