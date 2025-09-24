@@ -2,4 +2,7 @@
     background-image: linear-gradient(to bottom, #585191, #70A9A1);
     min-height: 100vh;
     min-width: 100vw;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
 }
