@@ -8,7 +8,7 @@ import ParticleSim from "../web-apps/ParticleSim/ParticleSim";
 const Home = () => {
     const heroData = {
         name: "Devin Stanley",
-        description: "This is a short description of me!",
+        description: "Software developer with a strong foundation in C#/.NET desktop applications, embedded systems integration, and data analysis. Proven ability to own full product cycles—from architecture to deployment—across scientific, firmware, and DAQ systems. Driven and proactive, consistently pursuing opportunities to improve workflows, adopt new tools, and deliver measurable results.",
         headshot: headshot
     };
 
