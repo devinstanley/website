@@ -53,7 +53,8 @@ const Projects = () => {
     useEffect(() => {
         const fetchReposAndLanguages = async() => {
             try {
-                const res = await fetch("https://api.github.com/users/devinstanley/repos?sort=updated");
+                const res = await fetch("/api/repos");
+                console.log(res);
                 
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
