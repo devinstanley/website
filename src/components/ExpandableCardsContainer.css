@@ -6,6 +6,7 @@
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
+    width: 100%
 }
 
 @media (max-width: 767px){

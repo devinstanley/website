@@ -8,6 +8,7 @@
   top: 0;
   z-index: 10;
   font-size: 1.5rem;
+  width: 100%;
 }
 
 .navbar a {
@@ -39,4 +40,16 @@
   background-color: white;
   color: #585191;
   font-weight: bold;
+}
+
+
+
+@media (max-width: 767px) {
+    .navbar {
+      font-size: 1rem;
+    }
+
+    .navbar a {
+      padding: 0.7rem;
+    }
 }
