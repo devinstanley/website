@@ -53,7 +53,7 @@ const Projects = () => {
     useEffect(() => {
         const fetchReposAndLanguages = async() => {
             try {
-                const res = await fetch("/api/repos");
+                const res = await fetch("/api/fetch_git_repos");
                 console.log(res);
                 
                 if (!res.ok) {
