@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
     padding: 4rem 5%;
     background: inherit;
     overflow: hidden;
@@ -20,7 +20,7 @@
         align-items: stretch;
         justify-content: center;
         padding: 4rem 10%;
-        gap: 4rem;
+        gap: 1.5rem;
     }
 }
 
@@ -52,7 +52,7 @@
 }
 
 .hero-description {
-    font-size: clamp(0.75rem, 1vw + 0.5rem, 1.1rem);
+    font-size: clamp(0.9rem, 1vw + 0.5rem, 1.1rem);
     max-width: 500px;
     margin: 0 auto;
     line-height: 1.5;
@@ -75,11 +75,11 @@
         padding: 1rem;
     }
 
-    .hero-descrption {
-        font-size: 0.8rem;
-    }
-
     .hero-name {
         font-size: 1.5rem;
+    }
+
+    .hero-headshot {
+        margin: 0 auto 0.5rem auto;
     }
 }
