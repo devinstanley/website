@@ -1,4 +1,4 @@
-.navbar {
+.web-app-navbar .navbar {
   background-color: #7D6F86;
   display: flex;
   align-items: center;
@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.navbar a {
+.web-app-navbar .navbar a {
   color: #FDFFFC;
   padding: 1rem;
   text-decoration: none;
@@ -22,21 +22,21 @@
   justify-content: center;
 }
 
-.social-icons {
+.web-app-navbar .social-icons {
   display: flex;
 }
 
-.nav-links {
+.web-app-navbar .nav-links {
   display: flex;
   min-width: 6rem;
 }
 
-.navbar a:hover {
+.web-app-navbar .navbar a:hover {
   color: #EDAE49;
   border-bottom: 2px solid #EDAE49;
 }
 
-.nav-link.active {
+.web-app-navbar nav-link.active {
   background-color: white;
   color: #585191;
   font-weight: bold;
@@ -45,11 +45,11 @@
 
 
 @media (max-width: 767px) {
-    .navbar {
+    .web-app-navbar .navbar {
       font-size: 1rem;
     }
 
-    .navbar a {
+    .web-app-navbar .navbar a {
       padding: 0.7rem;
     }
 }
