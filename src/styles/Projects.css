@@ -1,3 +1,9 @@
+.tile-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .git-tile {
     margin: 1rem;
     padding: 1rem 1.2rem;
@@ -17,7 +23,7 @@
     display: flex;
     justify-content: center;
     opacity: 0;
-    width: 0;
+    width: 0%;
     overflow: hidden;
     transition: all 0.3s ease;
     flex-shrink: 0;
@@ -26,7 +32,18 @@
 .git-tile:hover .repo-image-container {
     opacity: 1;
     transform: translateY(0);
-    width: 65vw;
+    width: 50%;
+}
+
+@media (max-width: 767px) {
+    .git-tile {
+        flex-direction: column;
+    }
+    .git-tile:hover .repo-image-container {
+        opacity: 1;
+        transform: translateY(0);
+        width: 100%;
+    }
 }
 
 .repo-image{
