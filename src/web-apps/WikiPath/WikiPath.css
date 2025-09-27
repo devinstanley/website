@@ -1,0 +1,17 @@
+
+.start-options {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.5);
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    justify-content: center;
+}
+
+.start-button {
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+}
