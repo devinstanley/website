@@ -16,7 +16,21 @@ const navigationCards = [
                 </>
             ),
             link: "apps/particle-sim"
-        }
+        },
+        {
+            id: 'wiki-path',
+            title: "Wiki Path",
+            shortDescription: "A game to travel from one Wiki page to another, only using the embedded hyperlinks.",
+            subDescription: (
+                <>
+                    <div className="line">
+                    </div>
+                    <div className="line">
+                    </div>
+                </>
+            ),
+            link: "apps/wiki-path"
+        },
     ]
 
 const Apps = () =>{
