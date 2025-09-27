@@ -13,101 +13,34 @@ const Projects = () => {
             .replace(/\b\w/g, (char) => char.toUpperCase());  // Capitalize first letter of each word
     };
 
-    const checkForImage = async (repo) => {
-        try {
-            const imageExtensions = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
-            
-            const response = await fetch(
-                `https://api.github.com/repos/${repo.full_name}/contents/ex`,
-                {
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json',
-                    }
-                }
-            );
-            
-            if (response.ok) {
-                const contents = await response.json();
-                
-                // Look for any image files in the ex/ folder
-                const imageFile = contents.find(file => 
-                    file.type === 'file' && 
-                    imageExtensions.some(extension => 
-                        file.name.toLowerCase().endsWith(`.${extension}`)
-                    )
-                );
-                
-                if (imageFile) {
-                    // Use the raw GitHub URL
-                    const rawUrl = `https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/ex/${imageFile.name}`;
-                    return rawUrl;
-                }
-            }
-            return null;
-        } catch (error) {
-            console.log(`No images found in ex/ folder for ${repo.name}`);
-            return null;
-        }
-    };
-
     useEffect(() => {
         const fetchReposAndLanguages = async() => {
             try {
+                console.log("Fetching complete repo data from API...");
+                
                 const res = await fetch("/api/fetch_git_repos");
-                console.log(res);
                 
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
                 
                 const data = await res.json();
-                console.log('API Response:', data); // Debug log
+                console.log('Complete API Response:', data);
                 
-                // Check if data is an array
-                if (!Array.isArray(data)) {
-                    console.error('API did not return an array:', data);
-                    return;
+                // Check if data has the expected structure
+                if (!data.repos || !Array.isArray(data.repos)) {
+                    throw new Error('API did not return expected data structure');
                 }
-                const filteredRepos = data.filter(repo => ! repo.fork)
-                setRepos(filteredRepos)
 
-                //Fetch Languages in Parallel
-                const languagePromises = filteredRepos.map(async (repo) => {
-                    try{
-                        const langRes = await fetch(repo.languages_url);
-                        const languages = await langRes.json();
-                        return { id: repo.id, languages: Object.keys(languages)};
-                    } catch (err){
-                        console.error(`Error fetching languages for ${repo.name}:`, err)
-                        return { id: repo.id, languages: []};
-                    }
-                });
-
-                // Fetch Images in Parallel
-                const imagePromises = filteredRepos.map(async (repo) => {
-                    const imageUrl = await checkForImage(repo);
-                    return { id: repo.id, imageUrl };
-                });
-
-                const [languageResults, imageResults] = await Promise.all([
-                    Promise.all(languagePromises),
-                    Promise.all(imagePromises)
-                ]);
-
-                const languagesMap = languageResults.reduce((acc, { id, languages }) => {
-                    acc[id] = languages;
-                    return acc;
-                }, {});
-
-                const imagesMap = imageResults.reduce((acc, { id, imageUrl }) => {
-                    acc[id] = imageUrl;
-                    return acc;
-                }, {});
-
-                setRepoLanguages(languagesMap);
-                setRepoImages(imagesMap);
-            } catch (err){
-                console.error("Error fetching repositories:", err)
+                // Set Data
+                setRepos(data.repos);
+                setRepoLanguages(data.languages || {});
+                setRepoImages(data.images || {});
+                
+                console.log(`Loaded ${data.repos.length} repositories with complete data`);
+                
+            } catch (err) {
+                console.error("Error fetching repositories:", err);
             }
         };
 
