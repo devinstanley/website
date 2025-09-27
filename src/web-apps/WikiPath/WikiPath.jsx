@@ -47,7 +47,7 @@ const WikiPath = () => {
     const normalizeTitle = (t) => t.replace(/_/g, " ").trim();
 
     if (normalizeTitle(title) === normalizeTitle(endPage?.title)) {
-        console.log("Page Found!!")
+      // TODO:: Add Popup
       alert("🎉 You reached the goal page!");
     }
   }
@@ -82,39 +82,29 @@ function sanitizeWikiHtml(html) {
 }
 
   return (
-    <div className="page-container">
-        <h1>Wiki Path</h1>
+    <div className="wiki-path-container">
+        <div className="title">Wiki Path</div>
         <div className="start-options">
             <button className="start-button" onClick={startNewGame}>
                 New Game
             </button>
 
-            <div>
-                <p>
-                    <strong>Start:</strong> {startPage?.title || ""}
-                </p>
-                <p>
-                    <strong>Goal:</strong> {endPage?.title || ""}
-                </p>
-                <p>Clicks: {clicks}</p>
-            </div>
+            <p>
+                <strong>Start:</strong> {startPage?.title || ""}
+            </p>
+            <p>
+                <strong>Goal:</strong> {endPage?.title || ""}
+            </p>
+            <p>
+                <strong>Clicks:</strong> {clicks}
+            </p>
         </div>
 
       {htmlContent && (
         <div
+          className="embedded-wiki"
           onClick={handleContentClick}
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(htmlContent) }}
-          style={{
-            textAlign: "left",
-            margin: "1rem auto",
-            padding: "1rem",
-            maxWidth: "900px",
-            border: "1px solid #ccc",
-            borderRadius: "8px",
-            backgroundColor: "white",
-            height: "70vh",
-            overflowY: "scroll",
-          }}
         />
       )}
     </div>

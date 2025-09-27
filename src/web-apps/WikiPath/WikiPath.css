@@ -1,17 +1,40 @@
+.wiki-path-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+.wiki-path-container .title {
+    font-size: 2rem;
+    font-weight: 600;
+}
 
 .start-options {
     display: flex;
+    flex-direction: row;
     background-color: rgba(255, 255, 255, 0.5);
     gap: 1rem;
     align-items: center;
-    margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
     justify-content: center;
+    width: fit-content;
 }
 
 .start-button {
     padding: 1rem;
     font-size: 1rem;
     border-radius: 1rem;
+}
+
+.embedded-wiki {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    padding: 1rem;
+    flex: 1;
+    overflow-y: scroll;
 }
