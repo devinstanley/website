@@ -18,7 +18,7 @@ const Projects = () => {
             try {
                 console.log("Fetching complete repo data from API...");
                 
-                const res = await fetch("/api/fetch_git_repos");
+                const res = await fetch("https://devinstanley.vercel.app/api/fetch_git_repos");
                 
                 if (!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
