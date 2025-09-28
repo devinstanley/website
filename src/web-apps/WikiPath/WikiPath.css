@@ -19,6 +19,12 @@
     gap: 1rem;
 }
 
+@media (max-width: 768px) {
+    .game-panels {
+        flex-direction: column;
+    }
+}
+
 .game-panel {
     display: flex;
     flex-direction: row;
@@ -43,4 +49,42 @@
     padding: 1rem;
     flex: 1;
     overflow-y: scroll;
+}
+
+.hover-target {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.hover-card {
+    visibility: hidden;
+    opacity: 0;
+    width: 250px;
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 8px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    transition: opacity 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.hover-target:hover .hover-card {
+    visibility: visible;
+    opacity: 1;
+}
+
+.hover-card.visible {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: visible;
+    opacity: 1;
 }

@@ -11,10 +11,12 @@ const WikiPath = () => {
   const [time, setTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const timerRef = useRef(null);
+  const [showGoalCard, setShowGoalCard] = useState(false);
   const [settings, setSettings] = useState({
     excludeDisambiguation: true,
     excludeLists: true,
     minExtractLength: 150,
+    showHoverExtract: true,
   });
 
   useEffect(() => {
@@ -140,24 +142,6 @@ function sanitizeWikiHtml(html) {
         <div className="title">Wiki Path</div>
         <div className="game-panels">
           <div className="game-panel">
-            <button className="start-button" onClick={startNewGame}>
-                New Game
-            </button>
-
-            <p>
-                <strong>Start:</strong> {startPage?.title || ""}
-            </p>
-            <p>
-                <strong>Goal:</strong> {endPage?.title || ""}
-            </p>
-            <p>
-                <strong>Clicks:</strong> {clicks}
-            </p>
-            <p>
-              <strong>Time:</strong> {time}s
-            </p>
-          </div>
-          <div className="game-panel">
               <label>
                 Page Min Abstract Length:{" "}
                 <input
@@ -169,6 +153,45 @@ function sanitizeWikiHtml(html) {
                   style={{ width: "4rem" }}
                 />
               </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={settings.showHoverCards}
+                  onChange={(e) =>
+                    setSettings({ ...settings, showHoverCards: e.target.checked })
+                  }
+                />
+                Show Goal Abstract on Click/Hover
+              </label>
+          </div>
+          <div className="game-panel">
+            <button className="start-button" onClick={startNewGame}>
+                New Game
+            </button>
+
+            <p>
+              <strong>Start:</strong> {startPage?.title || ""}
+            </p>
+
+            <p
+              className="hover-target"
+              onClick={() => setShowGoalCard((prev) => !prev)}
+            >
+              <strong>Goal:</strong> {endPage?.title || ""}
+              {settings.showHoverCards && endPage && (
+                <span
+                  className={`hover-card ${showGoalCard ? "visible" : ""}`}
+                >
+                  {endPage.extract}
+                </span>
+              )}
+            </p>
+            <p>
+                <strong>Clicks:</strong> {clicks}
+            </p>
+            <p>
+              <strong>Time:</strong> {time}s
+            </p>
           </div>
         </div>
 
