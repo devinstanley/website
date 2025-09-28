@@ -139,7 +139,7 @@ function sanitizeWikiHtml(html) {
 
   return (
     <div className="wiki-path-container">
-        <div className="title">Wiki Path</div>
+        <div className="title">Wiki Race</div>
         <div className="game-panels">
           <div className="game-panel">
               <label>

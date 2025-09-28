@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import '../styles/Home.css'
 import headshot from "../resources/Devin_Headshot_Temp.png";
 import HeroSection from "../components/HeroSection";
-import { FaGraduationCap, FaBriefcase, FaFileDownload, FaWaveSquare, FaAtom, FaFighterJet, FaGamepad } from 'react-icons/fa';
+import { FaGraduationCap, FaBriefcase, FaFileDownload, FaWaveSquare, FaAtom, FaFighterJet, FaGamepad, FaWikipediaW } from 'react-icons/fa';
 import ParticleSim from "../web-apps/ParticleSim/ParticleSim";
 
 const Home = () => {
@@ -64,6 +64,9 @@ const Home = () => {
                 <>
                     <div className="line">
                         <FaAtom/><span>Simple Particle Simulator</span>
+                    </div>
+                    <div className="line">
+                        <FaWikipediaW/><span>Wiki Race Game</span>
                     </div>
                     <div className="line">
                         <FaFighterJet/><span>More Coming Soon!</span>
