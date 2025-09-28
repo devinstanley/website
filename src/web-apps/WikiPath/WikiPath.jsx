@@ -8,10 +8,53 @@ const WikiPath = () => {
   const [currentPage, setCurrentPage] = useState(null);
   const [htmlContent, setHtmlContent] = useState("");
   const [clicks, setClicks] = useState(0);
+  const [time, setTime] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const timerRef = useRef(null);
+  const [settings, setSettings] = useState({
+    excludeDisambiguation: true,
+    excludeLists: true,
+    minExtractLength: 150,
+  });
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
 
   async function fetchRandomPage() {
     const res = await fetch("https://en.wikipedia.org/api/rest_v1/page/random/summary");
     return res.json();
+  }
+
+  async function fetchFilteredRandomPage(settings = {}) {
+    let page;
+    let attempts = 0;
+
+    do {
+      page = await fetchRandomPage();
+      attempts++;
+      // Filter Rules
+      if (settings.excludeDisambiguation && page.type === "disambiguation") {
+        continue;
+      }
+
+      if (settings.excludeLists && page.title.startsWith("List of")) {
+        continue;
+      }
+
+      if (settings.minExtractLength && page.extract.length < settings.minExtractLength) {
+        continue;
+      }
+
+      // Passed filters
+      console.log(`Found page after ${attempts} attempts`);
+      return page;
+    } while (attempts < 15); // safety stop
+
+    console.warn(`Failed to find a valid page after ${attempts} attempts`);
+    return page;
   }
 
   async function fetchPageHtml(title) {
@@ -22,8 +65,8 @@ const WikiPath = () => {
   }
 
   async function startNewGame() {
-    const page1 = await fetchRandomPage();
-    const page2 = await fetchRandomPage();
+    const page1 = await fetchFilteredRandomPage(settings);
+    const page2 = await fetchFilteredRandomPage(settings);
 
     setStartPage(page1);
     setEndPage(page2);
@@ -34,6 +77,15 @@ const WikiPath = () => {
     const html = await fetchPageHtml(page1.title);
     const sanitizedHtml = sanitizeWikiHtml(html);
     setHtmlContent(sanitizedHtml);
+
+    // Reset/Start Game Timer
+    setTime(0);
+    setTimerRunning(true);
+
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setTime((prev) => prev + 1);
+    }, 1000);
   }
 
   async function navigateToPage(title) {
@@ -48,7 +100,9 @@ const WikiPath = () => {
 
     if (normalizeTitle(title) === normalizeTitle(endPage?.title)) {
       // TODO:: Add Popup
-      alert("🎉 You reached the goal page!");
+      setTimerRunning(false);
+      clearInterval(timerRef.current);
+      alert(`🎉 You reached the goal page in ${clicks + 1} clicks and ${time} seconds!`);
     }
   }
 
@@ -84,7 +138,8 @@ function sanitizeWikiHtml(html) {
   return (
     <div className="wiki-path-container">
         <div className="title">Wiki Path</div>
-        <div className="start-options">
+        <div className="game-panels">
+          <div className="game-panel">
             <button className="start-button" onClick={startNewGame}>
                 New Game
             </button>
@@ -98,6 +153,23 @@ function sanitizeWikiHtml(html) {
             <p>
                 <strong>Clicks:</strong> {clicks}
             </p>
+            <p>
+              <strong>Time:</strong> {time}s
+            </p>
+          </div>
+          <div className="game-panel">
+              <label>
+                Page Min Abstract Length:{" "}
+                <input
+                  type="number"
+                  value={settings.minExtractLength}
+                  onChange={(e) =>
+                    setSettings({ ...settings, minExtractLength: Number(e.target.value) })
+                  }
+                  style={{ width: "4rem" }}
+                />
+              </label>
+          </div>
         </div>
 
       {htmlContent && (
