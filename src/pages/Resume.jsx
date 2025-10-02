@@ -2,7 +2,7 @@ import resume from '../resources/Devin_Resume.pdf';
 
 const Resume = () => {
   return (
-    <div style={{ width: "100%", height: "90vh"}}>
+    <div style={{ width: "100%", height: "100%", overflowY: "hidden"}}>
       <object
         data={resume}
         type="application/pdf"
